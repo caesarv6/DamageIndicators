@@ -38,7 +38,7 @@ namespace DamageMotes
             return true;
         }
 
-        public void WriteSettings(DMMod instance) => LoadedModManager.WriteModSettings(instance.Content.Identifier, instance.GetType().Name, this);
+        public void WriteSettings(DMMod instance) => LoadedModManager.WriteModSettings(instance.Content.PackageId, instance.GetType().Name, this);
     }
     public class DMMod : Mod
     {
@@ -47,7 +47,7 @@ namespace DamageMotes
         public DMMod(ModContentPack content) : base(content)
         {
             Pack = content;
-            string path = (string)typeof(LoadedModManager).GetMethod("GetSettingsFilename", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { Content.Identifier, GetType().Name });
+            string path = (string)typeof(LoadedModManager).GetMethod("GetSettingsFilename", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { Content.PackageId, GetType().Name });
             if (File.Exists(path))
                 settings = GetSettings<DMModSettings>();
         }
