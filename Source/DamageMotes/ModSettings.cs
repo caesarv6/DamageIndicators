@@ -13,8 +13,8 @@ namespace DamageMotes
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFaction");
-            Scribe_Values.Look(ref DisplayPawnsOnly, "DisplayPawnsOnly");
+            Scribe_Values.Look(ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFaction", false, true);
+            Scribe_Values.Look(ref DisplayPawnsOnly, "DisplayPawnsOnly", false, true);
         }
 
         public void DoWindowContents(Rect inRect)
@@ -37,8 +37,6 @@ namespace DamageMotes
                 return false;
             return true;
         }
-
-        public void WriteSettings(DMMod instance) => LoadedModManager.WriteModSettings(instance.Content.PackageId, instance.GetType().Name, this);
     }
     public class DMMod : Mod
     {
@@ -47,14 +45,10 @@ namespace DamageMotes
         public DMMod(ModContentPack content) : base(content)
         {
             Pack = content;
-            string path = (string)typeof(LoadedModManager).GetMethod("GetSettingsFilename", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { Content.PackageId, GetType().Name });
-            if (File.Exists(path))
-                settings = GetSettings<DMModSettings>();
+            settings = GetSettings<DMModSettings>();
         }
 
         public ModContentPack Pack { get; }
-
-        public override void WriteSettings() => settings.WriteSettings(this);
 
         public override string SettingsCategory() => Pack.Name;
 
