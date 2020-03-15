@@ -9,12 +9,14 @@ namespace DamageMotes
     {
         public bool EnableIndicatorNeutralFaction;
         public bool DisplayPawnsOnly;
+        public bool DisplayPawnsInstigatorOnly;
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFaction", false, true);
             Scribe_Values.Look(ref DisplayPawnsOnly, "DisplayPawnsOnly", false, true);
+            Scribe_Values.Look(ref DisplayPawnsInstigatorOnly, "DisplayPawnsInstigatorOnly", true, true);
         }
 
         public void DoWindowContents(Rect inRect)
@@ -26,6 +28,7 @@ namespace DamageMotes
             list.Begin(inRect);
             list.CheckboxLabeled("EnableIndicatorNeutralFactions".Translate(), ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFactions_Desc".Translate());
             list.CheckboxLabeled("DisplayPawnsOnly".Translate(), ref DisplayPawnsOnly, "DisplayPawnsOnly_Desc".Translate());
+            list.CheckboxLabeled("DisplayPawnsInstigatorOnly".Translate(), ref DisplayPawnsInstigatorOnly, "DisplayPawnsInstigatorOnly_Desc".Translate());
             list.End();
         }
 
@@ -34,6 +37,8 @@ namespace DamageMotes
             if (!EnableIndicatorNeutralFaction && (target.Faction == null || (instigator != null && instigator.Faction == null)))
                 return false;
             if (DisplayPawnsOnly && !(target is Pawn))
+                return false;
+            if (DisplayPawnsInstigatorOnly && (instigator == null || !(instigator is Pawn)))
                 return false;
             return true;
         }
