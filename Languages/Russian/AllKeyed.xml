@@ -4,7 +4,7 @@
 	<DM_MISS>Промах</DM_MISS>
 	<EnableIndicatorNeutralFactions>Отображать урон для нейтральных фракций</EnableIndicatorNeutralFactions>
 	<EnableIndicatorNeutralFactions_Desc>Урон не будет отображаться если какая-либо из сторон (принимающая или причинающая урон) нейтральные.</EnableIndicatorNeutralFactions_Desc>
-	<DisplayPawnsOnly>Отображать урон только для пешек</DisplayPawnsOnly>
+	<DisplayPawnsOnly>Отображать только урон причиенный вашим пешкам</DisplayPawnsOnly>
 	<DisplayPawnsOnly_Desc>Урон будет отображаться только если причинен вашей пешке.</DisplayPawnsOnly_Desc>
   <DisplayPawnsInstigatorOnly>Отображать только урон причиненный вашей пешкой</DisplayPawnsInstigatorOnly>
 	<DisplayPawnsInstigatorOnly_Desc>Урон не будет отображаться если урон нанесен не вашей пешкой, например: разложение, огонь, итд.</DisplayPawnsInstigatorOnly_Desc>
