@@ -23,7 +23,7 @@ namespace DamageMotes
         {
             float damage = __result.totalDamageDealt;
             if (damage > 0.01f && __instance.Map != null && __instance.ShouldDisplayDamage(dinfo.Instigator))
-                ThrowDamageMote(damage, __instance.Map, __instance.DrawPos, damage.ToString("F1"));
+                ThrowDamageMote(damage, __instance.Map, __instance.DrawPos, damage.ToString("F0"));
         }
         public static void ThrowDamageMote(float damage, Map map, Vector3 loc, string text)
         {
