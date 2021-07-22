@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Verse;
-using System.IO;
-using System.Reflection;
 
 namespace DamageMotes
 {

@@ -1,12 +1,7 @@
 ﻿using Verse;
 using UnityEngine;
 using RimWorld;
-using System;
 using HarmonyLib;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Linq;
-using System.Reflection;
 
 namespace DamageMotes
 {
