@@ -2,6 +2,7 @@
 using UnityEngine;
 using RimWorld;
 using HarmonyLib;
+using System;
 
 namespace DamageMotes
 {
@@ -13,6 +14,7 @@ namespace DamageMotes
             var harmony = new Harmony("com.CaesarV6.DamageMotes.Patch");
             harmony.PatchAll();
             Log.Message("Damage Indicators initialized.");
+            
         }
         public static void Postfix(DamageInfo dinfo, Thing __instance, DamageWorker.DamageResult __result)
         {
