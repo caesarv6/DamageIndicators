@@ -16,28 +16,31 @@ namespace DamageMotes
             Log.Message("Damage Indicators initialized.");
             
         }
+        
         public static void Postfix(DamageInfo dinfo, Thing __instance, DamageWorker.DamageResult __result)
         {
             float damage = __result.totalDamageDealt;
             if (damage > 0.01f && __instance.Map != null && __instance.ShouldDisplayDamage(dinfo.Instigator))
                 ThrowDamageMote(damage, __instance.Map, __instance.DrawPos, damage.ToString("F0"));
+            
         }
         public static void ThrowDamageMote(float damage, Map map, Vector3 loc, string text)
         {
             Color color = Color.white;
             //Determine colour
-            if (damage >= 90f)
+                 if (damage >= 90f)
                 color = Color.cyan;
             else if (damage >= 70f)
                 color = Color.magenta;
             else if (damage >= 50f)
                 color = Color.red;
-            else if (damage >= 30f)
+            else if (damage >= 25f)
                 color = Color.Lerp(Color.red, Color.yellow, 0.5f);//orange
             else if (damage >= 10f)
                 color = Color.yellow;
-
-            MoteMaker.ThrowText(loc, map, text, color, 3.65f);
+            else if (damage >= 5f)
+                color = Color.white;
+            MoteMaker.ThrowText(loc, map, text, color, 4f);
         }
     }
 
@@ -85,7 +88,11 @@ namespace DamageMotes
         /// Used on both the instigator and the target.
         /// </summary>
         public static bool ShouldDisplayDamage(this Thing target, Thing instigator)
+        
         {
+            if (target is Building && LoadedModManager.GetMod<DMMod>().settings.DisplayBuildingDamageOnly)
+                return true;
+            else 
             return LoadedModManager.GetMod<DMMod>().settings.ShouldDisplayDamageAccordingToSettings(target, instigator);
         }
     }
