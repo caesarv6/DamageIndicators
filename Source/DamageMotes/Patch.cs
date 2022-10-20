@@ -41,27 +41,42 @@ namespace DamageMotes
         }
     }
 
-    [HarmonyPatch(typeof(ShieldBelt), nameof(ShieldBelt.CheckPreAbsorbDamage))]
-    public static class ShieldBelt_Patch
+    [HarmonyPatch(typeof(CompShield), nameof(CompShield.PostPreApplyDamage))]
+    public class ShieldBelt_Patch
     {
-        static void Postfix(DamageInfo dinfo, bool __result, ShieldBelt __instance)
+        public static Pawn GetPawnOwner(CompShield thing)
         {
-            if (__result && __instance.Wearer != null && __instance.Wearer.Map != null)
+            if (thing.parent is Apparel apparel)
             {
-                if (dinfo.Def != DamageDefOf.EMP)
+                return apparel.Wearer;
+            }
+            if (thing.parent is Pawn result)
+            {
+                return result;
+            }
+            return null;
+        }
+
+        static void Postfix(DamageInfo dinfo, bool absorbed, CompShield __instance)
+        {
+            Pawn owner = GetPawnOwner(__instance);
+
+            if (absorbed && owner != null && owner.Map != null)
+            {
+                if (__instance.ShieldState != ShieldState.Resetting)
                 {
-                    var amount = dinfo.Amount * Traverse.Create(__instance).Field("EnergyLossPerDamage").GetValue<float>() * 100;
-                    MoteMaker.ThrowText(__instance.Wearer.DrawPos, __instance.Wearer.Map, ShieldBeltOutputString(__instance, amount), 3.65f);
+                    var amount = dinfo.Amount * __instance.Props.energyLossPerDamage * 100;
+                    MoteMaker.ThrowText(owner.DrawPos, owner.Map, ShieldBeltOutputString(__instance, amount), 3.65f);
                 }
-                if (__instance.ShieldState == ShieldState.Resetting)
+                else
                 {
-                    MoteMaker.ThrowText(__instance.Wearer.DrawPos, __instance.Wearer.Map, "PERSONALSHIELD_BROKEN".Translate(), 3.65f);
+                    MoteMaker.ThrowText(owner.DrawPos, owner.Map, "PERSONALSHIELD_BROKEN".Translate(), 3.65f);
                 }
             }
         }
-        public static string ShieldBeltOutputString(Thing __instance, float amount)
+        public static string ShieldBeltOutputString(CompShield __instance, float amount)
         {
-            return "(- " + amount.ToString("F0") + "/ " + (__instance.GetStatValue(StatDefOf.EnergyShieldEnergyMax, true) * 100) + ")";
+            return "(- " + amount.ToString("F0") + "/ " + (__instance.parent.GetStatValue(StatDefOf.EnergyShieldEnergyMax, true) * 100) + ")";
         }
     }
 
