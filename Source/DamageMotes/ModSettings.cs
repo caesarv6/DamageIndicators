@@ -8,13 +8,16 @@ namespace DamageMotes
         public bool EnableIndicatorNeutralFaction;
         public bool DisplayPawnsOnly;
         public bool DisplayPawnsInstigatorOnly;
-
+        public bool DisplayBuildingDamageOnly;
+        
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFaction", false, true);
             Scribe_Values.Look(ref DisplayPawnsOnly, "DisplayPawnsOnly", false, true);
             Scribe_Values.Look(ref DisplayPawnsInstigatorOnly, "DisplayPawnsInstigatorOnly", true, true);
+            Scribe_Values.Look(ref DisplayBuildingDamageOnly, "DisplayBuildingDamageOnly", true, true);
+
         }
 
         public void DoWindowContents(Rect inRect)
@@ -27,6 +30,7 @@ namespace DamageMotes
             list.CheckboxLabeled("EnableIndicatorNeutralFactions".Translate(), ref EnableIndicatorNeutralFaction, "EnableIndicatorNeutralFactions_Desc".Translate());
             list.CheckboxLabeled("DisplayPawnsOnly".Translate(), ref DisplayPawnsOnly, "DisplayPawnsOnly_Desc".Translate());
             list.CheckboxLabeled("DisplayPawnsInstigatorOnly".Translate(), ref DisplayPawnsInstigatorOnly, "DisplayPawnsInstigatorOnly_Desc".Translate());
+            list.CheckboxLabeled("DisplayBuildingDamage".Translate(), ref DisplayBuildingDamageOnly, "DisplayBuildingDamage_Desc".Translate());
             list.End();
         }
 
@@ -38,6 +42,8 @@ namespace DamageMotes
                 return false;
             if (DisplayPawnsInstigatorOnly && (instigator == null || !(instigator is Pawn)))
                 return false;
+            if (DisplayBuildingDamageOnly && (target is Building))
+                return true;
             return true;
         }
     }
