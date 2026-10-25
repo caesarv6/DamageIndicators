@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<PERSONALSHIELD_BROKEN>Щит сломан</PERSONALSHIELD_BROKEN>
+	<DM_MISS>Промах</DM_MISS>
+	<EnableIndicatorNeutralFactions>Включить индикаторы урона для нейтральных фракций</EnableIndicatorNeutralFactions>
+	<EnableIndicatorNeutralFactions_Desc>Индикаторы урона не будут отображаться, если у подстрекателя или цели нету фракции.</EnableIndicatorNeutralFactions_Desc>
+	<DisplayPawnsOnly>Показывать индикаторы повреждений только для колонистов</DisplayPawnsOnly>
+	<DisplayPawnsOnly_Desc>Индикаторы урона не будут отображаться если цель не колонист.</DisplayPawnsOnly_Desc>
+    <DisplayPawnsInstigatorOnly>Показывать индикаторы повреждений, только для тех повреждений что нанесли колонисты</DisplayPawnsInstigatorOnly>
+	<DisplayPawnsInstigatorOnly_Desc>Индикаторы урона не будут отображаться, если подстрекатель не колонист.</DisplayPawnsInstigatorOnly_Desc>
+</LanguageData>
